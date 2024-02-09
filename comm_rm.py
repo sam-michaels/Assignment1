@@ -11,23 +11,51 @@ def removeComments(intputFile) :
     with open (intputFile, "r") as file:
         inQ = False
         qType = None
+        sType = None
+        inBackslash = False
         for line in file:
             if not inQ: # checks if line is currently being considered a comment
-                if line.strip().startswith("'''") or line.strip().startswith('"""'):    # checks if the the line starts with quotes making it a comment
+                if line.strip().endswith("\\") :
+                    inBackslash = True
+                if line.strip().startswith("'''") or line.strip().startswith('"""') and not inBackslash:    # checks if the the line starts with quotes making it a comment
                     inQ = True
                     qType = line.strip()[:3]
                     if line.count(qType) == 2 :     # checks if there are multiple instaces of the quote type ending the comment
                         inQ = False
                     continue
+
+                startQ = -1
+                endQ = -1
+                sinQIndex = line.strip().find("'")
+                doubQIndex = line.strip().find('"')
                 commentIndex = line.find("#")       # Used to see if an in line comment is present
+
+                if 1 <= sinQIndex < doubQIndex or doubQIndex == -1 :
+                    sType = "'"
+                    startQ = sinQIndex
+                elif 1 <= doubQIndex < sinQIndex or sinQIndex == -1 :
+                    sType = '"'
+                    startQ = doubQIndex
+
+                if startQ != -1 :
+                    endQ = line.strip().find(sType, startQ + 1)
+
                 if commentIndex != -1 :             # if the find method can't find the instance, it returns -1
-                    if commentIndex == 0 or (line[commentIndex - 1] in " \t"):
+                    if startQ != 1 and endQ != 1 :
+                        if endQ < commentIndex or commentIndex < startQ :
+                            line = line[:commentIndex]  # removes the comment up until the # symbol
+                    elif commentIndex == 0 or (line[commentIndex - 1] in " \t"):
                         line = line[:commentIndex]  # removes the comment up until the # symbol
 
-            else:               
-                if line.strip().endswith(qType) :   # if already in quotes, checks if the end of the line has quotes ending the comment
-                    # if the line only consists of the quotes, checking the end also checks the start
-                    inQ = False
+            else:
+                if line.strip().startswith("\\", 0) :
+                    if " " in line.strip() :
+                        inQ = False
+                    else :
+                        continue
+                else :
+                    if line.strip().endswith(qType) :
+                        inQ = False
                 continue
 
             if line.strip() :                       # Checks if the line is not empty

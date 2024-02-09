@@ -1,36 +1,29 @@
-#this is a test to see if all types of comments are removed
+x = 1 # 1: comment
+"""
+2: comment
+"""
+'''
+3: comment
+'''
+"4: not comment, even if ignored by compiler"
+'5: not comment, even if ignored by compiler'
+x = """6: not comment, because used as string value"""
+x = \
+\
+"""
+7: not comment, because used as string value
+"""
+"'''8: not comment''' because is part of string"
+x = "9: # not comment because is part of string so we ignore the '#'"
+"""
+10: comment \
+\"""
+continues because the first '"' in the line above is escaped with backslash (\")
+"""
 
-def test1() :
+"""
+11: comment \
+\ """
+print("Hello")
 
-    '''
-    This is a multi line comment with single quotes
-    giberish is inserted here
-    '''
-
-    print("Hello")  #This is also a comment
-
-    """ this is a string literal that is treated like a comment"""
-    var1 = "This should not be deleted."        """ This should be concatenated"""
-    print(var1)    #This is also a comment
-
-    """
-    # Even though it looks like a comment, it is considered a string
-    # This should also be deleted though as this string is not added to a variable """
-
-    var2 = "This is a variable\
-    which should not be deleted"
-    print(var2)
-
-    return
-
-def test2() :
-
-    '''There is not much more to test'''    #But this whole line should be deleted
-    # If that last line wasn't deleted, Houston We Have a Problem
-    
-    """
-    
-    Ok, I think we are done
-    
-    """
-    return
+#this is a comment, there is no exit when u comment \

@@ -1,22 +1,11 @@
+x = 1
+"4: not comment, even if ignored by compiler"
+'5: not comment, even if ignored by compiler'
+x = """6: not comment, because used as string value"""
+x = \
+\
+"'''8: not comment''' because is part of string"
+x = "9: # not comment because is part of string so we ignore the '#'"
 
+print("Hello")
 
-def test1() :
-
-
-    print("Hello")
-
-    var1 = "This should not be deleted."        """ This should be concatenated"""
-    print(var1)
-
-
-    var2 = "This is a variable\
-    which should not be deleted"
-    print(var2)
-
-    return
-
-def test2() :
-
-
-
-    return
