@@ -13,11 +13,17 @@ def removeComments(intputFile) :
         qType = None
         sType = None
         inBackslash = False
+        quoteCount = 0
         for line in file:
             if not inQ: # checks if line is currently being considered a comment
                 if line.strip().endswith("\\") :
                     inBackslash = True
-                if line.strip().startswith("'''") or line.strip().startswith('"""') and not inBackslash:    # checks if the the line starts with quotes making it a comment
+                elif (line.strip().endswith("'''") or line.strip().endswith('"""'))  and inBackslash:
+                    quoteCount += 1
+                    if quoteCount == 2 :
+                        inBackslash = False
+                        quoteCount = 0
+                elif line.strip().startswith("'''") or line.strip().startswith('"""') and not inBackslash:    # checks if the the line starts with quotes making it a comment
                     inQ = True
                     qType = line.strip()[:3]
                     if line.count(qType) == 2 :     # checks if there are multiple instaces of the quote type ending the comment

@@ -4,8 +4,22 @@ x = 1
 x = """6: not comment, because used as string value"""
 x = \
 \
+"""
+7: not comment, because used as string value
+"""
 "'''8: not comment''' because is part of string"
 x = "9: # not comment because is part of string so we ignore the '#'"
 
 print("Hello")
 
+
+
+y = \
+\
+\
+\
+\
+\
+\
+\
+"""not comment """

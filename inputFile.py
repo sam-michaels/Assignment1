@@ -27,3 +27,13 @@ continues because the first '"' in the line above is escaped with backslash (\")
 print("Hello")
 
 #this is a comment, there is no exit when u comment \
+
+y = \
+\
+\
+\
+\
+\
+\
+\
+"""not comment """
